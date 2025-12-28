@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'Vitality Compass',
@@ -14,17 +17,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={cn('min-h-screen font-body antialiased')}>
-        {children}
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          'min-h-screen font-body bg-background antialiased',
+          inter.variable
+        )}
+      >
+        <main className="relative flex flex-col min-h-screen">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+          >
+            <div className="absolute left-[25%] top-[5%] h-[30rem] w-[30rem] rounded-full bg-primary/10 blur-[10rem] filter" />
+            <div className="absolute right-[25%] top-[20%] h-[30rem] w-[30rem] rounded-full bg-accent/10 blur-[10rem] filter" />
+          </div>
+          <div className="relative z-10 flex-1 flex flex-col">{children}</div>
+        </main>
         <Toaster />
       </body>
     </html>

@@ -3,10 +3,10 @@ import { Activity } from 'lucide-react';
 
 export default function Header() {
   return (
-    <header className="px-4 lg:px-6 h-16 flex items-center shadow-sm">
+    <header className="px-4 lg:px-6 h-20 flex items-center">
       <Link href="/" className="flex items-center justify-center" prefetch={false}>
         <Activity className="h-6 w-6 text-primary" />
-        <span className="ml-2 text-xl font-semibold font-headline">Vitality Compass</span>
+        <span className="ml-3 text-xl font-semibold">Vitality Compass</span>
       </Link>
     </header>
   );

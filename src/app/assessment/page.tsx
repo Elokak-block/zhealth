@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { questions } from '@/lib/questions';
-import type { AnswerSet, Question } from '@/lib/types';
+import type { AnswerSet } from '@/lib/types';
 import Header from '@/components/header';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -27,9 +28,12 @@ export default function AssessmentPage() {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<AnswerSet>(getInitialAnswers);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 for next, -1 for back
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+  const progress = ((currentQuestionIndex) / questions.length) * 100;
 
   const handleAnswerChange = (questionId: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -39,12 +43,13 @@ export default function AssessmentPage() {
     const currentAnswer = answers[currentQuestion.id];
     return currentAnswer !== undefined;
   }, [answers, currentQuestion]);
-
+  
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setDirection(1);
+      setIsTransitioning(true);
     } else {
-      // Encode answers and navigate to results
+      setIsLoading(true);
       const data = btoa(JSON.stringify(answers));
       router.push(`/results?data=${data}`);
     }
@@ -52,82 +57,126 @@ export default function AssessmentPage() {
 
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setDirection(-1);
+      setIsTransitioning(true);
     } else {
       router.push('/');
     }
   };
 
+  useEffect(() => {
+    if (!isTransitioning) return;
+    const timer = setTimeout(() => {
+      if (direction === 1) {
+        setCurrentQuestionIndex(i => i + 1);
+      } else {
+        setCurrentQuestionIndex(i => i - 1);
+      }
+      setIsTransitioning(false);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [isTransitioning, direction]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-2xl font-semibold mb-2">Analyzing lifestyle patterns...</h2>
+          <p className="text-muted-foreground">This will just take a moment.</p>
+        </motion.div>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className="w-full max-w-2xl">
-          <div className="mb-4">
-            <Progress value={progress} className="w-full" />
+        <div className="w-full max-w-2xl space-y-4">
+           <div>
+            <Progress value={progress} className="w-full h-1" />
             <p className="text-sm text-center text-muted-foreground mt-2">
-              Question {currentQuestionIndex + 1} of {questions.length}
+              {currentQuestionIndex + 1} of {questions.length}
+              {currentQuestionIndex > questions.length - 5 && ' - Almost there!'}
             </p>
           </div>
-          <Card className="shadow-2xl">
-            <CardHeader>
-              <CardTitle className="text-2xl font-headline text-center">
-                {currentQuestion.text}
-              </CardTitle>
-              <CardDescription className="text-center">
-                Your answer helps us understand your lifestyle patterns.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="py-8 px-6 sm:px-10">
-              <div className="flex justify-center">
-                <div className="w-full max-w-md">
-                 {currentQuestion.type === 'slider' && (
-                    <div className="space-y-4">
-                      <Slider
-                        id={currentQuestion.id}
-                        min={currentQuestion.min}
-                        max={currentQuestion.max}
-                        step={currentQuestion.step}
-                        value={[answers[currentQuestion.id] ?? 5]}
-                        onValueChange={([value]) => handleAnswerChange(currentQuestion.id, value)}
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>{currentQuestion.minLabel}</span>
-                        <span>{currentQuestion.maxLabel}</span>
-                      </div>
-                    </div>
-                  )}
-                  {currentQuestion.type === 'multiple-choice' && (
-                    <RadioGroup
-                      id={currentQuestion.id}
-                      value={answers[currentQuestion.id]?.toString()}
-                      onValueChange={(value) => handleAnswerChange(currentQuestion.id, parseInt(value, 10))}
-                      className="space-y-3"
-                    >
-                      {currentQuestion.options?.map((option) => (
-                        <Label
-                          key={option.value}
-                          className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-muted/50 has-[input:checked]:bg-primary/10 has-[input:checked]:border-primary"
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentQuestionIndex}
+              custom={direction}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={{
+                hidden: (direction) => ({ opacity: 0, x: direction * 30 }),
+                visible: { opacity: 1, x: 0 },
+                exit: (direction) => ({ opacity: 0, x: direction * -30 }),
+              }}
+              transition={{ duration: 0.2 }}
+              className="w-full"
+            >
+              <Card className="shadow-2xl bg-card/50 backdrop-blur-sm border border-white/5">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-semibold text-center leading-tight">
+                    {currentQuestion.text}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="py-8 px-6 sm:px-10">
+                  <div className="flex justify-center">
+                    <div className="w-full max-w-md">
+                     {currentQuestion.type === 'slider' && (
+                        <div className="space-y-4">
+                          <Slider
+                            id={currentQuestion.id}
+                            min={currentQuestion.min}
+                            max={currentQuestion.max}
+                            step={currentQuestion.step}
+                            value={[answers[currentQuestion.id] ?? 5]}
+                            onValueChange={([value]) => handleAnswerChange(currentQuestion.id, value)}
+                          />
+                          <div className="flex justify-between text-xs text-muted-foreground">
+                            <span>{currentQuestion.minLabel}</span>
+                            <span>{currentQuestion.maxLabel}</span>
+                          </div>
+                        </div>
+                      )}
+                      {currentQuestion.type === 'multiple-choice' && (
+                        <RadioGroup
+                          id={currentQuestion.id}
+                          value={answers[currentQuestion.id]?.toString()}
+                          onValueChange={(value) => handleAnswerChange(currentQuestion.id, parseInt(value, 10))}
+                          className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3"
                         >
-                          <RadioGroupItem value={option.value.toString()} />
-                          <span>{option.label}</span>
-                        </Label>
-                      ))}
-                    </RadioGroup>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={handleBack}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back
-              </Button>
-              <Button onClick={handleNext} disabled={!isCurrentAnswered}>
-                {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
-              </Button>
-            </CardFooter>
-          </Card>
+                          {currentQuestion.options?.map((option) => (
+                            <Label
+                              key={option.value}
+                              className="flex items-center justify-center text-center space-x-3 p-3 text-sm border rounded-lg cursor-pointer hover:bg-muted/50 has-[input:checked]:bg-primary/90 has-[input:checked]:text-primary-foreground has-[input:checked]:border-primary"
+                            >
+                              <RadioGroupItem value={option.value.toString()} className="sr-only"/>
+                              <span>{option.label}</span>
+                            </Label>
+                          ))}
+                        </RadioGroup>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button variant="ghost" onClick={handleBack}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                  </Button>
+                  <Button onClick={handleNext} disabled={!isCurrentAnswered}>
+                    {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </main>
     </div>
