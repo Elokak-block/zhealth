@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Zuty Health - Lifestyle Strain Assessment & Wellness Insight Tool',
   description: 'Check your lifestyle strain score with our non-diagnostic health assessment. Get insights into how your daily habits impact your long-term health and wellness.',
-  keywords: 'lifestyle strain assessment, health pattern analysis, wellness insight tool, daily habits, non-medical health check, lifestyle risk checker, health pattern analysis, lifestyle habits AI insights, wellness AI score, behavior pattern analysis, lifestyle improvement AI tool, habit-driven health insights',
+  keywords: 'lifestyle strain assessment, health pattern analysis, wellness insight tool, daily habits, non-medical health check, lifestyle risk checker, health pattern analysis, lifestyle habits AI insights, wellness AI score, behavior pattern analysis, lifestyle improvement AI tool, habit-driven health insights, wellness score, lifestyle score, daily routine analysis, preventive health tool, habit score, self-assessment health tool, stress and sleep analysis, diet and exercise patterns, non-diagnostic wellness tool, long-term health impact',
 };
 
 export default function RootLayout({
