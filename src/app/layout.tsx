@@ -2,9 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sekuya' });
 
 export const metadata: Metadata = {
   title: 'Vitality Compass',
@@ -18,15 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-      </head>
+      <head />
       <body
         className={cn(
           'min-h-screen font-body bg-background antialiased',
-          inter.variable
         )}
       >
         <main className="relative flex flex-col min-h-screen">

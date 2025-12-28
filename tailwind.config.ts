@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"Sekuya"', 'sans-serif'],
-        headline: ['"Sekuya"', 'sans-serif'],
+        body: ['"Trebuchet MS"', 'sans-serif'],
+        headline: ['"Trebuchet MS"', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
