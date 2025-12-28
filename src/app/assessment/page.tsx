@@ -13,6 +13,7 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import AdBanner from '@/components/ad-banner';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -42,8 +43,11 @@ export default function AssessmentPage() {
       setIsTransitioning(true);
     } else {
       setIsLoading(true);
-      const data = btoa(JSON.stringify(answers));
-      router.push(`/results?data=${data}`);
+      // Delay to show ad before results
+      setTimeout(() => {
+        const data = btoa(JSON.stringify(answers));
+        router.push(`/results?data=${data}`);
+      }, 3000); // 3-second delay for ad visibility
     }
   };
 
@@ -101,13 +105,19 @@ export default function AssessmentPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="space-y-6"
         >
           <h2 className="text-2xl font-semibold mb-2">Analyzing lifestyle patterns...</h2>
           <p className="text-muted-foreground">This will just take a moment.</p>
+          <AdBanner />
         </motion.div>
       </div>
     )
   }
+
+  const showAd = useMemo(() => {
+    return [10, 20].includes(currentQuestionIndex);
+  }, [currentQuestionIndex]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -121,6 +131,13 @@ export default function AssessmentPage() {
               {currentQuestionIndex > questions.length - 5 && ' - Almost there!'}
             </p>
           </div>
+
+          {showAd && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="my-4">
+              <AdBanner />
+            </motion.div>
+          )}
+
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={currentQuestionIndex}
