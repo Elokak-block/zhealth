@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AdBanner from './ad-banner';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
   diet: <Apple />,
@@ -132,6 +133,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
+      <AdBanner className="mb-8" />
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
         <CardHeader className="p-4 sm:p-6">

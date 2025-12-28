@@ -47,7 +47,7 @@ export default function AssessmentPage() {
       setTimeout(() => {
         const data = btoa(JSON.stringify(answers));
         router.push(`/results?data=${data}`);
-      }, 3000); // 3-second delay for ad visibility
+      }, 500); // Short delay to feel responsive
     }
   };
 
@@ -109,7 +109,6 @@ export default function AssessmentPage() {
         >
           <h2 className="text-2xl font-semibold mb-2">Analyzing lifestyle patterns...</h2>
           <p className="text-muted-foreground">This will just take a moment.</p>
-          <AdBanner />
         </motion.div>
       </div>
     )
