@@ -12,17 +12,17 @@ export const PILLARS = {
   cardiovascular: {
     id: 'cardiovascular',
     name: 'Cardiovascular Strain',
-    weight: 0.2,
+    weight: 0.20,
   },
   hormonal: {
     id: 'hormonal',
     name: 'Hormonal & Stress Load',
-    weight: 0.2,
+    weight: 0.20,
   },
   stability: {
     id: 'stability',
-    name: 'Lifestyle Stability',
-    weight: 0.1,
+    name: 'Lifestyle Stability & Recovery',
+    weight: 0.10,
   },
 } as const;
 

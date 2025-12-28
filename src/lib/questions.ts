@@ -6,7 +6,7 @@ const linearScale = (value: number, min: number, max: number, reverse: boolean =
   return reverse ? 10 - score : score;
 };
 
-// Scoring for multiple choice is just the option value
+// MCQ score maps directly to the value. We use a 0-10 scale for consistency.
 const mcqScore = (value: number) => value;
 
 export const questions: Question[] = [
@@ -18,8 +18,8 @@ export const questions: Question[] = [
     type: 'multiple-choice',
     options: [
       { value: 0, label: 'Never or rarely' },
-      { value: 3, label: 'A few times a month' },
-      { value: 7, label: 'A few times a week' },
+      { value: 2, label: 'A few times a month' },
+      { value: 6, label: 'A few times a week' },
       { value: 10, label: 'Daily or more' },
     ],
     scoringFunction: mcqScore,
@@ -30,7 +30,7 @@ export const questions: Question[] = [
     text: 'How frequently do you eat ultra-processed foods (fast food, packaged snacks)?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Very frequently' },
@@ -43,7 +43,7 @@ export const questions: Question[] = [
     text: 'Do you experience energy crashes or sudden fatigue after meals?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Never' },
+      { value: 1, label: 'Never' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Almost always' },
@@ -60,7 +60,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Very inconsistent',
     maxLabel: 'Very consistent',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q5',
@@ -68,7 +68,7 @@ export const questions: Question[] = [
     text: 'How often do you snack late at night?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely or never' },
+      { value: 1, label: 'Rarely or never' },
       { value: 4, label: '1-2 nights a week' },
       { value: 7, label: '3-4 nights a week' },
       { value: 10, label: 'Most nights' },
@@ -93,7 +93,7 @@ export const questions: Question[] = [
     text: 'How often do you feel hungry shortly after eating a full meal?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 7, label: 'Often' },
       { value: 10, label: 'Almost always' },
@@ -134,7 +134,7 @@ export const questions: Question[] = [
     text: 'How often do you eat red or processed meats?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely or never' },
+      { value: 1, label: 'Rarely or never' },
       { value: 4, label: 'A few times a week' },
       { value: 8, label: 'Most days' },
       { value: 10, label: 'Daily' },
@@ -151,7 +151,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Rarely',
     maxLabel: 'Every meal',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q12',
@@ -163,7 +163,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Very inconsistent',
     maxLabel: 'Very consistent',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q13',
@@ -171,7 +171,7 @@ export const questions: Question[] = [
     text: 'How often do you feel chronically stressed or tense?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -184,7 +184,7 @@ export const questions: Question[] = [
     text: 'How often do you feel physically run-down without a clear reason?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Most of the time' },
@@ -204,7 +204,7 @@ export const questions: Question[] = [
       { value: 3, label: '3-4 times a week' },
       { value: 0, label: '5+ times a week' },
     ],
-    scoringFunction: mcqScore,
+    scoringFunction: mcqScore, // Already reversed in options
   },
   {
     id: 'q16',
@@ -236,7 +236,7 @@ export const questions: Question[] = [
     text: 'How frequently do you consume high-salt or heavily seasoned foods?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Almost every meal' },
@@ -249,7 +249,7 @@ export const questions: Question[] = [
     text: 'How often do you feel physically exhausted despite adequate sleep?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Almost always' },
@@ -280,7 +280,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Very poor',
     maxLabel: 'Excellent',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q22',
@@ -301,7 +301,7 @@ export const questions: Question[] = [
     text: 'How often do you feel anxious, restless, or unable to relax?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -326,7 +326,7 @@ export const questions: Question[] = [
     text: 'How often do you wake up feeling unrefreshed?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Almost always' },
@@ -353,7 +353,7 @@ export const questions: Question[] = [
     text: 'How often do financial concerns cause stress or worry?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -366,7 +366,7 @@ export const questions: Question[] = [
     text: 'How often do you feel overwhelmed by responsibilities?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -383,7 +383,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Very little',
     maxLabel: 'Ample time',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q30',
@@ -395,7 +395,7 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Not at all',
     maxLabel: 'Very supported',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
   {
     id: 'q31',
@@ -415,7 +415,7 @@ export const questions: Question[] = [
     text: 'How often do you feel "on edge" without knowing why?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -428,7 +428,7 @@ export const questions: Question[] = [
     text: 'How frequently do you feel mentally overloaded or burned out?',
     type: 'multiple-choice',
     options: [
-      { value: 0, label: 'Rarely' },
+      { value: 1, label: 'Rarely' },
       { value: 4, label: 'Sometimes' },
       { value: 8, label: 'Often' },
       { value: 10, label: 'Constantly' },
@@ -457,6 +457,6 @@ export const questions: Question[] = [
     step: 1,
     minLabel: 'Not confident',
     maxLabel: 'Very confident',
-    scoringFunction: (value) => linearScale(value, 0, 10, true),
+    scoringFunction: (value) => linearScale(value, 0, 10, true), // Reverse scored
   },
 ];
