@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 declare global {
@@ -10,7 +10,15 @@ declare global {
 }
 
 export default function AdBanner({ className }: { className?: string }) {
+  const insRef = useRef<HTMLModElement>(null);
+
   useEffect(() => {
+    // Check if the ad slot has already been filled.
+    // AdSense adds a `data-adsbygoogle-status` attribute when an ad is loaded.
+    if (insRef.current && insRef.current.getAttribute('data-adsbygoogle-status') === 'done') {
+      return;
+    }
+
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
@@ -27,13 +35,15 @@ export default function AdBanner({ className }: { className?: string }) {
     >
       <div className="w-full">
         {/* The script part is already in layout.tsx */}
-        <ins className="adsbygoogle"
-            style={{display: 'block'}}
-            data-ad-client="ca-pub-9498357581912172"
-            data-ad-slot="7632982316"
-            data-ad-format="autorelaxed"
-            ></ins>
-       </div>
+        <ins
+          ref={insRef}
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-9498357581912172"
+          data-ad-slot="7632982316"
+          data-ad-format="autorelaxed"
+        ></ins>
+      </div>
     </div>
   );
 }
