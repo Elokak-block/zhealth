@@ -32,6 +32,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
 
   useEffect(() => {
+    // This effect runs only on the client, after hydration
     setQrCodeUrl(window.location.href);
   }, []);
 
@@ -186,9 +187,9 @@ function ResultsClientInternal({ data }: { data?: string }) {
         </div>
       </div>
 
-      <Alert variant="default" className="bg-card/30 border-accent/50 text-accent-foreground">
+      <Alert variant="default" className="bg-card/30 border-accent/50 text-muted-foreground">
         <Info className="h-4 w-4 text-accent" />
-        <AlertTitle>Legal Disclaimer</AlertTitle>
+        <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
         <AlertDescription>
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
         </AlertDescription>
@@ -198,9 +199,9 @@ function ResultsClientInternal({ data }: { data?: string }) {
 }
 
 
-export default function ResultsClientWrapper({ data }: { data?: string }) {
+export default function ResultsClientWrapper() {
   const searchParams = useSearchParams();
-  const dataParam = data || searchParams.get('data');
+  const dataParam = searchParams.get('data');
 
   if (!dataParam) {
     return (
@@ -218,3 +219,5 @@ export default function ResultsClientWrapper({ data }: { data?: string }) {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
+
+    
