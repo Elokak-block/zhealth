@@ -21,6 +21,11 @@ export default function RootLayout({
       <head>
         <Script
           async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9498357581912172"
+          crossOrigin="anonymous"
+        ></Script>
+        <Script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-J8XCZCL7TV"
         ></Script>
         <Script id="google-analytics">
@@ -57,7 +62,7 @@ export default function RootLayout({
               </p>
               <nav className="flex gap-4 sm:gap-6 text-xs text-muted-foreground flex-wrap justify-center">
                 <Link href="/about" className="hover:text-foreground">About</Link>
-                <Link href="/contact" className="hovertext-foreground">Contact</Link>
+                <Link href="/contact" className="hover:text-foreground">Contact</Link>
                 <Link href="/faq" className="hover:text-foreground">FAQ</Link>
                 <Link href="/terms" className="hover:text-foreground">Terms</Link>
                 <Link href="/privacy" className="hover:text-foreground">Privacy</Link>

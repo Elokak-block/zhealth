@@ -1,21 +1,38 @@
-import { cn } from "@/lib/utils"
+'use client';
 
-// NOTE: This is a placeholder for your ad code.
-// You will need to replace the contents of this component with the actual
-// ad script provided by Google AdSense or another ad network.
+import { useEffect } from 'react';
+import { cn } from '@/lib/utils';
+
+declare global {
+  interface Window {
+    adsbygoogle: any;
+  }
+}
 
 export default function AdBanner({ className }: { className?: string }) {
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   return (
     <div
       className={cn(
-        "flex items-center justify-center w-full h-[100px] bg-muted/50 rounded-lg border border-dashed border-border text-muted-foreground",
+        "flex items-center justify-center w-full min-h-[100px] bg-muted/50 rounded-lg",
         className
       )}
     >
-      <div className="text-center">
-        <p className="font-semibold">Advertisement</p>
-        <p className="text-xs">Your ad unit will be displayed here.</p>
-      </div>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-format="fluid"
+        data-ad-layout-key="-fb+5w+4e-db+86"
+        data-ad-client="ca-pub-9498357581912172"
+        data-ad-slot="9616325433"
+      ></ins>
     </div>
-  )
+  );
 }
