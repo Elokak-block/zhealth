@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import AdBanner from '@/components/ad-banner';
 
 export const metadata: Metadata = {
   title: 'Zuty Health - Lifestyle Strain Assessment & Wellness Insight Tool',
@@ -36,6 +37,13 @@ export default function RootLayout({
 
             gtag('config', 'G-J8XCZCL7TV');
           `}
+        </Script>
+        <Script id="google-tag-manager">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-582CWQXW');`}
         </Script>
         <meta name="google-adsense-account" content="ca-pub-9498357581912172" />
       </head>
