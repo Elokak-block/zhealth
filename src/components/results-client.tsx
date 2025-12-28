@@ -133,7 +133,6 @@ function ResultsClientInternal({ data }: { data?: string }) {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
-      <AdBanner className="mb-8" />
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
         <CardHeader className="p-4 sm:p-6">
@@ -257,6 +256,10 @@ function ResultsClientInternal({ data }: { data?: string }) {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      <div className="my-8">
+        <AdBanner />
       </div>
 
       <Alert variant="default" className="bg-card/30 border-accent/50">

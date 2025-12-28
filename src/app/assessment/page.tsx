@@ -54,7 +54,7 @@ export default function AssessmentPage() {
   const handleAnswerChange = (questionId: string, value: number) => {
     const updatedAnswers = { ...answers, [questionId]: value };
     setAnswers(updatedAnswers);
-    if (currentQuestion.type !== 'slider') {
+     if (currentQuestion.type !== 'slider') {
       setHasSliderInteracted(true); // for multiple choice, consider it interacted
     } else {
       setHasSliderInteracted(true);
@@ -113,11 +113,6 @@ export default function AssessmentPage() {
     )
   }
 
-  const showAd = useMemo(() => {
-    // Show ad before question 14 (index 13) and 29 (index 28)
-    return [13, 28].includes(currentQuestionIndex);
-  }, [currentQuestionIndex]);
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -130,12 +125,6 @@ export default function AssessmentPage() {
               {currentQuestionIndex > questions.length - 5 && ' - Almost there!'}
             </p>
           </div>
-
-          {showAd && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="my-4">
-              <AdBanner />
-            </motion.div>
-          )}
 
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -217,6 +206,9 @@ export default function AssessmentPage() {
           </AnimatePresence>
         </div>
       </main>
+      <div className="container px-4 md:px-6 my-8">
+        <AdBanner />
+      </div>
     </div>
   );
 }
