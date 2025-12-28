@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
@@ -28,6 +29,11 @@ const pillarIcons: Record<PillarId, React.ReactNode> = {
 function ResultsClientInternal({ data }: { data?: string }) {
   const router = useRouter();
   const shareableRef = useRef<HTMLDivElement>(null);
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
+
+  useEffect(() => {
+    setQrCodeUrl(window.location.href);
+  }, []);
 
   const resultData: ResultData | null = useMemo(() => {
     if (!data) return null;
@@ -166,9 +172,11 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <h3 className="text-base font-bold text-primary">Zuty Health</h3>
                     <p className="text-xs text-muted-foreground">My Lifestyle Strain Index</p>
                     <p className="text-5xl font-bold" style={{ color: scoreColorClass }}>{resultData.lifestyleStrainIndex}</p>
-                    <p className="text-lg font-semibold">{resultData.tier.name}</p>
+                    <p className="text-lg font-semibold">{resultAta.tier.name}</p>
                   </div>
-                  <QRCodeSVG value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
+                  {qrCodeUrl && (
+                    <QRCodeSVG value={qrCodeUrl} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
+                  )}
                 </div>
                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
               </div>
@@ -210,3 +218,5 @@ export default function ResultsClientWrapper({ data }: { data?: string }) {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
+
+    
