@@ -12,7 +12,7 @@ import { PILLARS } from '@/lib/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, Twitter } from 'lucide-react';
+import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
@@ -223,7 +223,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <p className="text-lg font-semibold">{resultData.tier.name}</p>
                   </div>
                   {qrCodeUrl && (
-                    <Image src="/zuty-qr-code.png" alt="QR Code" width={80} height={80} unoptimized />
+                    <Image src="/qr.png" alt="QR Code" width={80} height={80} unoptimized />
                   )}
                 </div>
                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
@@ -266,3 +266,5 @@ export default function ResultsClientWrapper() {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
+
+    
