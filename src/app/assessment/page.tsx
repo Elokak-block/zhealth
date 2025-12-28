@@ -54,9 +54,8 @@ export default function AssessmentPage() {
   const handleAnswerChange = (questionId: string, value: number) => {
     const updatedAnswers = { ...answers, [questionId]: value };
     setAnswers(updatedAnswers);
-    if (currentQuestion.type === 'multiple-choice') {
-      // Automatically move to the next question for multiple choice
-      setTimeout(() => handleNext(), 200);
+    if (currentQuestion.type !== 'slider') {
+      setHasSliderInteracted(true); // for multiple choice, consider it interacted
     } else {
       setHasSliderInteracted(true);
     }
@@ -209,13 +208,9 @@ export default function AssessmentPage() {
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                   </Button>
-                  {currentQuestion.type === 'slider' ? (
-                     <Button onClick={handleNext} disabled={!isCurrentAnswered}>
-                       {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
-                     </Button>
-                  ) : (
-                     <div className="h-10"/> // Placeholder to keep footer height consistent
-                  )}
+                  <Button onClick={handleNext} disabled={!isCurrentAnswered}>
+                    {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
+                  </Button>
                 </CardFooter>
               </Card>
             </motion.div>
