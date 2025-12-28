@@ -89,6 +89,21 @@ function ResultsClientInternal({ data }: { data?: string }) {
     window.open(url, '_blank');
   };
 
+  if (!data) {
+     return (
+      <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-2xl font-semibold mb-2">Loading results...</h2>
+          <p className="text-muted-foreground">Or the data is invalid. Please try again.</p>
+           <Button onClick={() => router.push('/assessment')} className="mt-4">Try Again</Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   if (!resultData) {
     return (
@@ -258,19 +273,7 @@ export default function ResultsClientWrapper() {
   const searchParams = useSearchParams();
   const dataParam = searchParams.get('data');
 
-  if (!dataParam) {
-    return (
-      <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl font-semibold mb-2">Loading results...</h2>
-        </motion.div>
-      </div>
-    );
-  }
-
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
+
+    
