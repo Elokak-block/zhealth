@@ -84,7 +84,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
      })
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = 'vitality-compass-results.png';
+        link.download = 'zuty-health-results.png';
         link.href = dataUrl;
         link.click();
       })
@@ -233,14 +233,14 @@ function ResultsClientInternal({ data }: { data?: string }) {
               <div ref={shareableRef} className="p-4 bg-background rounded-lg w-full aspect-[4/3] flex flex-col justify-between" style={{ backgroundColor: '#0F1115' }}>
                  <div className="flex justify-between items-start">
                     <div>
-                        <h3 className="text-base font-bold text-primary">Vitality Compass</h3>
+                        <h3 className="text-base font-bold text-primary">Zuty Health</h3>
                         <p className="text-xs text-muted-foreground">My Lifestyle Strain Index</p>
                         <p className="text-5xl font-bold" style={{color: scoreColorClass}}>{resultData.lifestyleStrainIndex}</p>
                         <p className="text-lg font-semibold">{resultData.tier.name}</p>
                     </div>
                     <QRCode value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
                  </div>
-                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from vitality-compass.app</p>
+                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zuty.health</p>
               </div>
               <Button onClick={handleDownloadImage} className="w-full"><Download className="mr-2"/> Download Image</Button>
             </CardContent>

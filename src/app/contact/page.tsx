@@ -17,10 +17,10 @@ export default function ContactPage() {
               <p className="text-lg text-foreground pt-4">
                 📧 Email:{' '}
                 <a
-                  href="mailto:support@vitalitycompass.app"
+                  href="mailto:support@zutyhealth.com"
                   className="text-primary hover:underline"
                 >
-                  support@vitalitycompass.app
+                  support@zutyhealth.com
                 </a>
               </p>
               <div className="pt-4">
