@@ -119,22 +119,22 @@ function ResultsClientInternal({ data }: { data?: string }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-8"
+      className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
-        <CardHeader>
-          <CardTitle className="text-lg font-medium text-muted-foreground">Lifestyle Strain Index</CardTitle>
-          <p className="text-8xl font-bold" style={{color: scoreColorClass}}>{resultData.lifestyleStrainIndex}</p>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-base sm:text-lg font-medium text-muted-foreground">Lifestyle Strain Index</CardTitle>
+          <p className="text-7xl sm:text-8xl font-bold" style={{color: scoreColorClass}}>{resultData.lifestyleStrainIndex}</p>
         </CardHeader>
-        <CardContent>
-          <p className="text-3xl font-semibold">{resultData.tier.name}</p>
-          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">{resultData.tier.description}</p>
+        <CardContent className="p-4 sm:p-6 pt-0">
+          <p className="text-2xl sm:text-3xl font-semibold">{resultData.tier.name}</p>
+          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto text-sm sm:text-base">{resultData.tier.description}</p>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="lg:col-span-2 space-y-6 md:space-y-8">
           <Card className="bg-card/50">
             <CardHeader>
               <CardTitle>Pillar Breakdown</CardTitle>
@@ -145,7 +145,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                 <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 20, top: 10, bottom: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" horizontal={false} />
                   <XAxis type="number" domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis dataKey="name" type="category" width={110} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <YAxis dataKey="name" type="category" width={110} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" fontSize={12} tick={{ width: 100 }}/>
                   <RechartsTooltip cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }} />
                   <Bar dataKey="score" barSize={20} radius={[0, 4, 4, 0]}>
                     {chartData.map((entry, index) => (
@@ -192,7 +192,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
           )}
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           <Card className="bg-card/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><Users/> Community Connection</CardTitle>
@@ -230,15 +230,15 @@ function ResultsClientInternal({ data }: { data?: string }) {
               <CardDescription>Download a summary of your results.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-4">
-              <div ref={shareableRef} className="p-6 bg-background rounded-lg w-full aspect-[4/3] flex flex-col justify-between" style={{ backgroundColor: '#0F1115' }}>
+              <div ref={shareableRef} className="p-4 bg-background rounded-lg w-full aspect-[4/3] flex flex-col justify-between" style={{ backgroundColor: '#0F1115' }}>
                  <div className="flex justify-between items-start">
                     <div>
-                        <h3 className="text-lg font-bold text-primary">Vitality Compass</h3>
-                        <p className="text-sm text-muted-foreground">My Lifestyle Strain Index</p>
-                        <p className="text-6xl font-bold" style={{color: scoreColorClass}}>{resultData.lifestyleStrainIndex}</p>
-                        <p className="text-xl font-semibold">{resultData.tier.name}</p>
+                        <h3 className="text-base font-bold text-primary">Vitality Compass</h3>
+                        <p className="text-xs text-muted-foreground">My Lifestyle Strain Index</p>
+                        <p className="text-5xl font-bold" style={{color: scoreColorClass}}>{resultData.lifestyleStrainIndex}</p>
+                        <p className="text-lg font-semibold">{resultData.tier.name}</p>
                     </div>
-                    <QRCode value={typeof window !== 'undefined' ? window.location.href : ''} size={60} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
+                    <QRCode value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
                  </div>
                  <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from vitality-compass.app</p>
               </div>
@@ -262,6 +262,10 @@ function ResultsClientInternal({ data }: { data?: string }) {
 
 
 export default function ResultsClientWrapper({ data }: { data?: string }) {
+  const searchParams = useSearchParams();
+  const dataParam = data || searchParams.get('data');
+
   // This wrapper ensures suspense boundary is respected
-  return <ResultsClientInternal data={data} />;
+  // and we can use useSearchParams
+  return <ResultsClientInternal data={dataParam || undefined} />;
 }

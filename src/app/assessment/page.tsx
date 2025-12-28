@@ -77,6 +77,11 @@ export default function AssessmentPage() {
     return () => clearTimeout(timer);
   }, [isTransitioning, direction]);
 
+  useEffect(() => {
+    // Prefetch the results page to make the transition faster
+    router.prefetch('/results');
+  }, [router]);
+
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
@@ -121,11 +126,11 @@ export default function AssessmentPage() {
             >
               <Card className="shadow-2xl bg-card/50 backdrop-blur-sm border border-white/5">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-semibold text-center leading-tight">
+                  <CardTitle className="text-xl sm:text-2xl font-semibold text-center leading-tight">
                     {currentQuestion.text}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="py-8 px-6 sm:px-10">
+                <CardContent className="py-8 px-4 sm:px-10">
                   <div className="flex justify-center">
                     <div className="w-full max-w-md">
                      {currentQuestion.type === 'slider' && (
@@ -138,7 +143,7 @@ export default function AssessmentPage() {
                             value={[answers[currentQuestion.id] ?? 5]}
                             onValueChange={([value]) => handleAnswerChange(currentQuestion.id, value)}
                           />
-                          <div className="flex justify-between text-xs text-muted-foreground">
+                          <div className="flex justify-between text-xs text-muted-foreground px-1">
                             <span>{currentQuestion.minLabel}</span>
                             <span>{currentQuestion.maxLabel}</span>
                           </div>
@@ -154,7 +159,7 @@ export default function AssessmentPage() {
                           {currentQuestion.options?.map((option) => (
                             <Label
                               key={option.value}
-                              className="flex items-center justify-center text-center space-x-3 p-3 text-sm border rounded-lg cursor-pointer hover:bg-muted/50 has-[input:checked]:bg-primary/90 has-[input:checked]:text-primary-foreground has-[input:checked]:border-primary"
+                              className="flex items-center justify-center text-center space-x-3 p-3 text-sm border rounded-lg cursor-pointer transition-colors hover:bg-muted/50 has-[input:checked]:bg-primary/90 has-[input:checked]:text-primary-foreground has-[input:checked]:border-primary"
                             >
                               <RadioGroupItem value={option.value.toString()} className="sr-only"/>
                               <span>{option.label}</span>
