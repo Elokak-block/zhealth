@@ -30,9 +30,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="flex items-center justify-center py-4">
-        <p className="text-xs text-muted-foreground">&copy; 2024 Vitality Compass. All rights reserved.</p>
-      </footer>
     </div>
   );
 }

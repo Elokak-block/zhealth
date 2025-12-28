@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Vitality Compass',
@@ -21,7 +22,7 @@ export default function RootLayout({
           'min-h-screen font-body bg-background antialiased',
         )}
       >
-        <main className="relative flex flex-col min-h-screen">
+        <div className="relative flex flex-col min-h-screen">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
@@ -30,7 +31,21 @@ export default function RootLayout({
             <div className="absolute right-[25%] top-[20%] h-[30rem] w-[30rem] rounded-full bg-accent/10 blur-[10rem] filter" />
           </div>
           <div className="relative z-10 flex-1 flex flex-col">{children}</div>
-        </main>
+           <footer className="w-full py-6">
+            <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between text-center gap-4">
+              <p className="text-xs text-muted-foreground">
+                &copy; 2025 Vitality Compass. All rights reserved.
+              </p>
+              <nav className="flex gap-4 sm:gap-6 text-xs text-muted-foreground">
+                <Link href="/about" className="hover:text-foreground">About</Link>
+                <Link href="/contact" className="hover:text-foreground">Contact</Link>
+                <Link href="/terms" className="hover:text-foreground">Terms</Link>
+                <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
+                <Link href="/disclaimer" className="hover:text-foreground">Disclaimer</Link>
+              </nav>
+            </div>
+          </footer>
+        </div>
         <Toaster />
       </body>
     </html>
