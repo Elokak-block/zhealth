@@ -53,8 +53,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
     toPng(shareableRef.current, {
       cacheBust: true,
       backgroundColor: '#0F1115',
-      width: 400,
-      height: 300,
+      pixelRatio: 2, // Increase resolution
     })
       .then((dataUrl) => {
         const link = document.createElement('a');
@@ -210,23 +209,32 @@ function ResultsClientInternal({ data }: { data?: string }) {
           </Card>
           <Card className="bg-card/50">
             <CardHeader>
-              <CardTitle>Shareable Image</CardTitle>
+              <CardTitle>Download Result Image</CardTitle>
               <CardDescription>Download a summary image of your results.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-4">
-              <div ref={shareableRef} className="p-4 bg-background rounded-lg w-full aspect-[4/3] flex flex-col justify-between" style={{ backgroundColor: '#0F1115' }}>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-base font-bold text-primary">Zuty Health</h3>
-                    <p className="text-xs text-muted-foreground">My Lifestyle Strain Index</p>
-                    <p className="text-5xl font-bold" style={{ color: scoreColorClass }}>{resultData.lifestyleStrainIndex}</p>
-                    <p className="text-lg font-semibold">{resultData.tier.name}</p>
-                  </div>
-                  {qrCodeUrl && (
-                    <Image src="/qr.png" alt="QR Code" width={80} height={80} unoptimized />
-                  )}
+              <div ref={shareableRef} className="p-6 bg-background rounded-lg w-full aspect-square flex flex-col" style={{ backgroundColor: '#0F1115' }}>
+                <div className="flex-1 flex flex-col justify-center items-center text-center">
+                    <h3 className="text-lg font-bold text-primary">Zuty Health</h3>
+                    <p className="text-sm text-muted-foreground -mt-1">My Lifestyle Strain Index</p>
+                    <p className="text-8xl font-bold my-2" style={{ color: scoreColorClass }}>{resultData.lifestyleStrainIndex}</p>
+                    <p className="text-2xl font-semibold">{resultData.tier.name}</p>
                 </div>
-                <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
+                <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-xs mb-4">
+                    {Object.keys(resultData.pillarScores).slice(0, 6).map(pillar => {
+                        const p = pillar as PillarId;
+                        return(
+                            <div key={p} className="flex flex-col items-center text-center">
+                                <span className="font-semibold">{PILLARS[p].name.split(' ')[0]}</span>
+                                <span className="text-muted-foreground">{resultData.pillarScores[p]}/{PILLARS[p].maxScore}</span>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-semibold">Check your score at zutyhealth.com</p>
+                  <p className="text-[10px] text-muted-foreground/80 mt-1">This is not medical advice. Consult a doctor for health concerns.</p>
+                </div>
               </div>
               <Button onClick={handleDownloadImage} className="w-full"><Download className="mr-2" /> Download Image</Button>
             </CardContent>
@@ -266,5 +274,3 @@ export default function ResultsClientWrapper() {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
-
-    
