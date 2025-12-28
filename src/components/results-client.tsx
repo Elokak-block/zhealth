@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toPng } from 'html-to-image';
 import Image from 'next/image';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, Cell } from 'recharts';
 import { calculateScores } from '@/lib/scoring';
 import type { AnswerSet, ResultData, PillarId } from '@/lib/types';
 import { PILLARS } from '@/lib/types';
@@ -13,7 +12,7 @@ import { PILLARS } from '@/lib/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Info, AlertTriangle, HeartPulse, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity } from 'lucide-react';
+import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, Twitter } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
@@ -30,10 +29,12 @@ function ResultsClientInternal({ data }: { data?: string }) {
   const router = useRouter();
   const shareableRef = useRef<HTMLDivElement>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     // This effect runs only on the client, after hydration
-    setQrCodeUrl(window.location.href);
+    const url = window.location.href;
+    setQrCodeUrl(url);
   }, []);
 
   const resultData: ResultData | null = useMemo(() => {
@@ -64,6 +65,32 @@ function ResultsClientInternal({ data }: { data?: string }) {
       .catch((err) => console.error(err));
   }, []);
 
+  const handleCopyLink = () => {
+    if (!qrCodeUrl) return;
+    navigator.clipboard.writeText(qrCodeUrl).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
+
+  const shareOnX = () => {
+    const text = `I just checked my Lifestyle Strain Index on Zuty Health and my score is ${resultData?.lifestyleStrainIndex} (${resultData?.tier.name})! Find out yours:`;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(qrCodeUrl)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareOnWhatsApp = () => {
+    const text = `I just checked my Lifestyle Strain Index on Zuty Health and my score is ${resultData?.lifestyleStrainIndex} (${resultData?.tier.name})! Find out yours: ${qrCodeUrl}`;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
+  
+  const shareOnFacebook = () => {
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(qrCodeUrl)}`;
+    window.open(url, '_blank');
+  };
+
+
   if (!resultData) {
     return (
       <div className="container mx-auto text-center">
@@ -73,12 +100,6 @@ function ResultsClientInternal({ data }: { data?: string }) {
       </div>
     );
   }
-
-  const chartData = Object.keys(resultData.pillarScores).map((pillar) => ({
-    name: PILLARS[pillar as PillarId].name,
-    score: resultData.pillarScores[pillar as PillarId],
-    maxScore: PILLARS[pillar as PillarId].maxScore,
-  }));
 
   const getScoreColor = (strainIndex: number) => {
     if (strainIndex <= 20) return 'hsl(var(--chart-3))'; // Excellent - Green
@@ -118,23 +139,26 @@ function ResultsClientInternal({ data }: { data?: string }) {
             </CardHeader>
             <CardContent>
                <div className="space-y-4">
-                {chartData.map((pillar) => (
-                  <div key={pillar.name}>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm font-medium text-muted-foreground">{pillar.name}</span>
-                      <span className="text-sm font-bold">{pillar.score} / {pillar.maxScore}</span>
+                {Object.keys(resultData.pillarScores).map((pillar) => {
+                  const p = pillar as PillarId;
+                  return (
+                    <div key={p}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-muted-foreground">{PILLARS[p].name}</span>
+                        <span className="text-sm font-bold">{resultData.pillarScores[p]} / {PILLARS[p].maxScore}</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div
+                          className="h-2.5 rounded-full transition-all duration-500 ease-out"
+                          style={{
+                            width: `${(resultData.pillarScores[p] / PILLARS[p].maxScore) * 100}%`,
+                            backgroundColor: getScoreColor(100 - (resultData.pillarScores[p] / PILLARS[p].maxScore) * 100),
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2.5">
-                      <div
-                        className="h-2.5 rounded-full"
-                        style={{
-                          width: `${(pillar.score / pillar.maxScore) * 100}%`,
-                          backgroundColor: getScoreColor(100 - (pillar.score / pillar.maxScore) * 100),
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
@@ -161,10 +185,33 @@ function ResultsClientInternal({ data }: { data?: string }) {
         </div>
 
         <div className="space-y-6 md:space-y-8">
+           <Card className="bg-card/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Share2 /> Share Your Results</CardTitle>
+              <CardDescription>Share your results with friends and family.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center gap-4">
+               <Button onClick={handleCopyLink} className="w-full">
+                <Copy className="mr-2 h-4 w-4" />
+                {isCopied ? 'Link Copied!' : 'Copy Link'}
+              </Button>
+              <div className="flex w-full justify-center gap-2">
+                <Button variant="outline" size="icon" onClick={shareOnX} aria-label="Share on X">
+                   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 fill-current"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+                </Button>
+                <Button variant="outline" size="icon" onClick={shareOnWhatsApp} aria-label="Share on WhatsApp">
+                   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 fill-current"><title>WhatsApp</title><path d="M12.06 0C5.4 0 0 5.4 0 12.06c0 3.48 1.5 6.6 3.96 8.76L0 24l3.3-3.9c2.1 1.5 4.56 2.4 7.2 2.4 6.66 0 12.06-5.4 12.06-12.06S18.72 0 12.06 0Zm6.54 18.54c-.24.42-.9.78-1.2.84-.24.06-.66.12-2.1-.48-1.8-.72-3.3-2.4-4.5-4.08-1.02-1.5-.48-2.22-.48-2.22s-.06-.06.3-2.1c0 0 .66-.78.96-.96.3-.24.6-.24.84-.24.18 0 .36 0 .54.06.3.06.42.06.66.48.24.42.84 2.1.9 2.22.06.12.12.24 0 .42-.12.12-.24.24-.48.48s-.6.66-.84.84c-.3.24-.42.36-.12.72.3.36.9.96 2.04 1.8.9.72 1.98 1.2 2.22 1.32.3.12.42.12.6-.06.18-.18.78-.9.96-1.14.18-.24.36-.18.6-.12.24.06 1.5.72 1.74.84.24.12.42.18.48.24.06.06.06.3-.18.72Z"/></svg>
+                </Button>
+                 <Button variant="outline" size="icon" onClick={shareOnFacebook} aria-label="Share on Facebook">
+                   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 fill-current"><title>Facebook</title><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
           <Card className="bg-card/50">
             <CardHeader>
-              <CardTitle>Share Your Summary</CardTitle>
-              <CardDescription>Download a summary of your results.</CardDescription>
+              <CardTitle>Shareable Image</CardTitle>
+              <CardDescription>Download a summary image of your results.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-4">
               <div ref={shareableRef} className="p-4 bg-background rounded-lg w-full aspect-[4/3] flex flex-col justify-between" style={{ backgroundColor: '#0F1115' }}>
@@ -176,7 +223,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <p className="text-lg font-semibold">{resultData.tier.name}</p>
                   </div>
                   {qrCodeUrl && (
-                    <Image src="/zuty-qr-code.png" alt="QR Code" width={80} height={80} />
+                    <Image src="/zuty-qr-code.png" alt="QR Code" width={80} height={80} unoptimized />
                   )}
                 </div>
                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
@@ -187,10 +234,10 @@ function ResultsClientInternal({ data }: { data?: string }) {
         </div>
       </div>
 
-      <Alert variant="default" className="bg-card/30 border-accent/50 text-foreground">
+      <Alert variant="default" className="bg-card/30 border-accent/50">
         <Info className="h-4 w-4 text-accent" />
         <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
-        <AlertDescription>
+        <AlertDescription className="text-muted-foreground">
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
         </AlertDescription>
       </Alert>
