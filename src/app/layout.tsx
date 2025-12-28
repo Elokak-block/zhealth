@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Zuty Health - Lifestyle Strain Assessment & Wellness Insight Tool',
   description: 'Check your lifestyle strain score with our non-diagnostic health assessment. Get insights into how your daily habits impact your long-term health and wellness.',
-  keywords: 'lifestyle strain assessment, health pattern analysis, wellness insight tool, daily habits, non-medical health check, lifestyle risk checker, health pattern analysis',
+  keywords: 'lifestyle strain assessment, health pattern analysis, wellness insight tool, daily habits, non-medical health check, lifestyle risk checker, health pattern analysis, lifestyle habits AI insights, wellness AI score, behavior pattern analysis, lifestyle improvement AI tool, habit-driven health insights',
 };
 
 export default function RootLayout({
@@ -37,9 +37,10 @@ export default function RootLayout({
               <p className="text-xs text-muted-foreground">
                 &copy; 2025 Zuty Health. All rights reserved.
               </p>
-              <nav className="flex gap-4 sm:gap-6 text-xs text-muted-foreground">
+              <nav className="flex gap-4 sm:gap-6 text-xs text-muted-foreground flex-wrap justify-center">
                 <Link href="/about" className="hover:text-foreground">About</Link>
-                <Link href="/contact" className="hover:text-foreground">Contact</Link>
+                <Link href="/contact" className="hovertext-foreground">Contact</Link>
+                <Link href="/faq" className="hover:text-foreground">FAQ</Link>
                 <Link href="/terms" className="hover:text-foreground">Terms</Link>
                 <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
                 <Link href="/disclaimer" className="hover:text-foreground">Disclaimer</Link>
