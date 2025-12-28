@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"Trebuchet MS"', 'sans-serif'],
-        headline: ['"Trebuchet MS"', 'sans-serif'],
+        body: ['Verdana', 'sans-serif'],
+        headline: ['Verdana', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
