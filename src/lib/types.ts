@@ -1,28 +1,28 @@
 export const PILLARS = {
-  metabolic: {
-    id: 'metabolic',
-    name: 'Metabolic & Blood Sugar Load',
-    weight: 0.25,
+  diet: {
+    id: 'diet',
+    name: 'Diet & Nutrition',
+    weight: 0.2,
   },
-  inflammatory: {
-    id: 'inflammatory',
-    name: 'Inflammation & Cancer-Linked Habits',
-    weight: 0.25,
+  activity: {
+    id: 'activity',
+    name: 'Physical Activity',
+    weight: 0.2,
   },
-  cardiovascular: {
-    id: 'cardiovascular',
-    name: 'Cardiovascular Strain',
-    weight: 0.20,
+  sleep: {
+    id: 'sleep',
+    name: 'Sleep & Recovery',
+    weight: 0.2,
   },
-  hormonal: {
-    id: 'hormonal',
-    name: 'Hormonal & Stress Load',
-    weight: 0.20,
+  stress: {
+    id: 'stress',
+    name: 'Stress & Mental Health',
+    weight: 0.2,
   },
-  stability: {
-    id: 'stability',
-    name: 'Lifestyle Stability & Recovery',
-    weight: 0.10,
+  habits: {
+    id: 'habits',
+    name: 'Substance & Lifestyle Habits',
+    weight: 0.2,
   },
 } as const;
 

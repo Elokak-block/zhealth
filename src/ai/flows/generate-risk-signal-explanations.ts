@@ -55,10 +55,10 @@ Your response must be structured in JSON format.
 1.  **Explanation:**
     - Write a concise, empathetic paragraph (2-3 sentences) explaining what the identified '{{{riskSignal}}}' means in simple terms.
     - **Crucially, tailor the explanation to the specific risk signal.**
-      - For "Elevated Metabolic Risk Signals": Focus on blood sugar instability and metabolic strain.
-      - For "Inflammatory Lifestyle Risk Signals Present": Focus on habits linked to long-term inflammation.
-      - For "Cardiovascular Strain Indicators Detected": Focus on activity, fatigue, and recovery patterns suggesting heart strain.
-      - For "Stress Load & Recovery Imbalance": Focus on hormonal imbalance from chronic stress and poor recovery.
+      - For "Diet & Nutrition Patterns Observed": Focus on the impact of food choices on energy and well-being.
+      - For "Activity & Sedentary Balance Risks": Focus on the importance of movement for overall health.
+      - For "Sleep & Recovery Imbalance": Focus on how sleep quality affects daily performance and long-term health.
+      - For "Elevated Stress & Mental Fatigue": Focus on the connection between mental well-being and physical health.
       - For "High Systemic Lifestyle Strain": Explain that multiple areas are under pressure, making recovery difficult.
     - **Do NOT use medical jargon or diagnose any condition.** Frame it as "patterns" or "signals."
 
@@ -69,21 +69,21 @@ Your response must be structured in JSON format.
 
 Example Input:
 {
-  "riskSignal": "Elevated Metabolic Risk Signals",
+  "riskSignal": "Diet & Nutrition Patterns Observed",
   "primaryRiskDrivers": [
-    "How often do you consume sugary drinks (soda, sweetened juice, energy drinks)?",
-    "How frequently do you eat ultra-processed foods (fast food, packaged snacks)?",
-    "How often do you snack late at night?"
+    "How often do you consume sugary drinks?",
+    "How often do you consume processed or fast food?",
+    "How much water do you drink daily (liters)?"
   ]
 }
 
 Example Output:
 {
-  "explanation": "Your responses show patterns commonly associated with blood sugar instability and metabolic strain. These signals are lifestyle-linked and modifiable, and addressing them can lead to more stable energy levels.",
+  "explanation": "Your responses suggest that your current dietary habits might not be fully supporting your energy levels and overall wellness. Focusing on small nutritional changes can have a significant impact.",
   "suggestions": [
-    "Replace one of your daily sugary drinks with sparkling water or unsweetened iced tea.",
-    "Try swapping one ultra-processed snack this week for a piece of fruit or a handful of nuts.",
-    "Aim to have your last snack at least two hours before you go to bed to give your body time to digest."
+    "Try replacing one sugary drink each day with a glass of water.",
+    "Swap one processed snack for a piece of fruit or a handful of nuts this week.",
+    "Aim to drink one extra glass of water each day."
   ]
 }
 `,

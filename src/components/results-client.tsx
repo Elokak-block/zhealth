@@ -265,6 +265,24 @@ export default function ResultsClientWrapper({ data }: { data?: string }) {
   const searchParams = useSearchParams();
   const dataParam = data || searchParams.get('data');
 
+  if (!dataParam) {
+    // This can happen on initial render when server-side rendering.
+    // The client-side will re-render with the search param.
+    // Or if the data param is truly missing.
+    // Let's render a loading state or a specific message.
+    return (
+      <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-2xl font-semibold mb-2">Loading results...</h2>
+        </motion.div>
+      </div>
+    );
+  }
+
   // This wrapper ensures suspense boundary is respected
   // and we can use useSearchParams
   return <ResultsClientInternal data={dataParam || undefined} />;
