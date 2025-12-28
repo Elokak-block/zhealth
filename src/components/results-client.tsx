@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toPng } from 'html-to-image';
-import QRCode from 'qrcode.react';
+import { QRCode } from 'qrcode.react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, Cell } from 'recharts';
 import { calculateScores } from '@/lib/scoring';
 import type { AnswerSet, ResultData, PillarId } from '@/lib/types';
