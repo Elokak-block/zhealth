@@ -17,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <head />
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-9498357581912172" />
+      </head>
       <body
         className={cn(
           'min-h-screen font-body bg-background antialiased',
