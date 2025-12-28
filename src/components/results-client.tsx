@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toPng } from 'html-to-image';
-import { QRCode } from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, Cell } from 'recharts';
 import { calculateScores } from '@/lib/scoring';
 import type { AnswerSet, ResultData, PillarId } from '@/lib/types';
@@ -168,7 +168,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <p className="text-5xl font-bold" style={{ color: scoreColorClass }}>{resultData.lifestyleStrainIndex}</p>
                     <p className="text-lg font-semibold">{resultData.tier.name}</p>
                   </div>
-                  <QRCode value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
+                  <QRCodeSVG value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
                 </div>
                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
               </div>
