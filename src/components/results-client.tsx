@@ -84,7 +84,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
      })
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = 'zuty-health-results.png';
+        link.download = 'zutyhealth-results.png';
         link.href = dataUrl;
         link.click();
       })
@@ -240,7 +240,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     </div>
                     <QRCode value={typeof window !== 'undefined' ? window.location.href : ''} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
                  </div>
-                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zuty.health</p>
+                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
               </div>
               <Button onClick={handleDownloadImage} className="w-full"><Download className="mr-2"/> Download Image</Button>
             </CardContent>
