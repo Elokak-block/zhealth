@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Verdana', 'sans-serif'],
-        headline: ['Verdana', 'sans-serif'],
+        body: ['Georgia', 'serif'],
+        headline: ['Georgia', 'serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
