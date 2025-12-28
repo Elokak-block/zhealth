@@ -26,7 +26,7 @@ export default function AdBanner({ className }: { className?: string }) {
       )}
     >
       <ins
-        className="adsbygoogle"
+        className="adsbygoogle w-full"
         style={{ display: 'block' }}
         data-ad-format="fluid"
         data-ad-layout-key="-fb+5w+4e-db+86"
