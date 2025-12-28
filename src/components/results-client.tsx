@@ -172,7 +172,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <h3 className="text-base font-bold text-primary">Zuty Health</h3>
                     <p className="text-xs text-muted-foreground">My Lifestyle Strain Index</p>
                     <p className="text-5xl font-bold" style={{ color: scoreColorClass }}>{resultData.lifestyleStrainIndex}</p>
-                    <p className="text-lg font-semibold">{resultAta.tier.name}</p>
+                    <p className="text-lg font-semibold">{resultData.tier.name}</p>
                   </div>
                   {qrCodeUrl && (
                     <QRCodeSVG value={qrCodeUrl} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
@@ -218,5 +218,3 @@ export default function ResultsClientWrapper({ data }: { data?: string }) {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
-
-    
