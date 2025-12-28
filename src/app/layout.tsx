@@ -5,8 +5,9 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Zuty Health',
-  description: 'Evaluate your lifestyle strain and health risk indicators.',
+  title: 'Zuty Health - Lifestyle Strain Assessment & Wellness Insight Tool',
+  description: 'Check your lifestyle strain score with our non-diagnostic health assessment. Get insights into how your daily habits impact your long-term health and wellness.',
+  keywords: 'lifestyle strain assessment, health pattern analysis, wellness insight tool, daily habits, non-medical health check, lifestyle risk checker, health pattern analysis',
 };
 
 export default function RootLayout({

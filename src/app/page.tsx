@@ -12,10 +12,10 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
-                  Understand how your lifestyle is impacting your health.
+                  Lifestyle Strain Assessment: How Daily Habits Impact Your Health
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  This isn’t a diagnosis. It’s a pattern-based insight from your daily habits.
+                  Get a non-diagnostic health check with our wellness insight tool. Analyze your lifestyle patterns to understand risks related to stress, diet, and sleep without storing any data.
                 </p>
               </div>
               <div className="space-y-2">
