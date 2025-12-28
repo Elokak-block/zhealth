@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const getInitialAnswers = (): AnswerSet => {
@@ -31,19 +31,11 @@ export default function AssessmentPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [direction, setDirection] = useState(1); // 1 for next, -1 for back
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSliderInteracted, setHasSliderInteracted] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex) / questions.length) * 100;
 
-  const handleAnswerChange = (questionId: string, value: number) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
-  };
-  
-  const isCurrentAnswered = useMemo(() => {
-    const currentAnswer = answers[currentQuestion.id];
-    return currentAnswer !== undefined;
-  }, [answers, currentQuestion]);
-  
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setDirection(1);
@@ -55,6 +47,25 @@ export default function AssessmentPage() {
     }
   };
 
+  const handleAnswerChange = (questionId: string, value: number) => {
+    const updatedAnswers = { ...answers, [questionId]: value };
+    setAnswers(updatedAnswers);
+    if (currentQuestion.type === 'multiple-choice') {
+      // Automatically move to the next question for multiple choice
+      setTimeout(() => handleNext(), 200);
+    } else {
+      setHasSliderInteracted(true);
+    }
+  };
+  
+  const isCurrentAnswered = useMemo(() => {
+    const currentAnswer = answers[currentQuestion.id];
+    if (currentQuestion.type === 'slider') {
+      return hasSliderInteracted;
+    }
+    return currentAnswer !== undefined;
+  }, [answers, currentQuestion, hasSliderInteracted]);
+  
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
       setDirection(-1);
@@ -72,6 +83,7 @@ export default function AssessmentPage() {
       } else {
         setCurrentQuestionIndex(i => i - 1);
       }
+      setHasSliderInteracted(false); // Reset slider interaction state
       setIsTransitioning(false);
     }, 150);
     return () => clearTimeout(timer);
@@ -159,10 +171,15 @@ export default function AssessmentPage() {
                           {currentQuestion.options?.map((option) => (
                             <Label
                               key={option.value}
-                              className="flex items-center justify-center text-center space-x-3 p-3 text-sm border rounded-lg cursor-pointer transition-colors hover:bg-muted/50 has-[input:checked]:bg-primary/90 has-[input:checked]:text-primary-foreground has-[input:checked]:border-primary"
+                              className="relative flex items-center justify-center text-center space-x-3 p-3 text-sm border rounded-lg cursor-pointer transition-colors hover:bg-muted/50 has-[input:checked]:bg-primary/90 has-[input:checked]:text-primary-foreground has-[input:checked]:border-primary"
                             >
                               <RadioGroupItem value={option.value.toString()} className="sr-only"/>
                               <span>{option.label}</span>
+                               {answers[currentQuestion.id] === option.value && (
+                                <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary/80">
+                                  <Check className="h-3 w-3 text-primary-foreground" />
+                                </span>
+                              )}
                             </Label>
                           ))}
                         </RadioGroup>
@@ -175,9 +192,13 @@ export default function AssessmentPage() {
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                   </Button>
-                  <Button onClick={handleNext} disabled={!isCurrentAnswered}>
-                    {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
-                  </Button>
+                  {currentQuestion.type === 'slider' ? (
+                     <Button onClick={handleNext} disabled={!isCurrentAnswered}>
+                       {currentQuestionIndex === questions.length - 1 ? 'See My Results' : 'Next'}
+                     </Button>
+                  ) : (
+                     <div className="h-10"/> // Placeholder to keep footer height consistent
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>
