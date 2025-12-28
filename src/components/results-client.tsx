@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toPng } from 'html-to-image';
-import { QRCodeSVG } from 'qrcode.react';
+import Image from 'next/image';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, Cell } from 'recharts';
 import { calculateScores } from '@/lib/scoring';
 import type { AnswerSet, ResultData, PillarId } from '@/lib/types';
@@ -176,7 +176,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
                     <p className="text-lg font-semibold">{resultData.tier.name}</p>
                   </div>
                   {qrCodeUrl && (
-                    <QRCodeSVG value={qrCodeUrl} size={50} level="L" bgColor="transparent" fgColor="hsl(var(--foreground))" />
+                    <Image src="/zuty-qr-code.png" alt="QR Code" width={80} height={80} />
                   )}
                 </div>
                 <p className="text-[10px] text-muted-foreground">This is not medical advice. Consult a doctor for health concerns. Results from zutyhealth.com</p>
@@ -187,7 +187,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
         </div>
       </div>
 
-      <Alert variant="default" className="bg-card/30 border-accent/50 text-muted-foreground">
+      <Alert variant="default" className="bg-card/30 border-accent/50 text-foreground">
         <Info className="h-4 w-4 text-accent" />
         <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
         <AlertDescription>
@@ -219,5 +219,3 @@ export default function ResultsClientWrapper() {
 
   return <ResultsClientInternal data={dataParam || undefined} />;
 }
-
-    
