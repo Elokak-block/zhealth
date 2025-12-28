@@ -116,7 +116,8 @@ export default function AssessmentPage() {
   }
 
   const showAd = useMemo(() => {
-    return [10, 20].includes(currentQuestionIndex);
+    // Show ad before question 14 (index 13) and 29 (index 28)
+    return [13, 28].includes(currentQuestionIndex);
   }, [currentQuestionIndex]);
 
   return (
