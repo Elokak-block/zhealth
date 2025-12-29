@@ -19,7 +19,7 @@ export default function HealthInsightsPage() {
               <div>
                 <h4 className="text-lg font-semibold text-foreground">Why Lifestyle Strain Matters</h4>
                 <p className="mt-2">
-                  Many chronic health issues are linked to long-term lifestyle patterns. Small, seemingly minor habits related to diet, sleep, activity, and stress can accumulate over time, creating significant strain on your body. The Lifestyle Strain Index isn't a diagnosis—it's a reflection of these accumulated patterns.
+                  Many chronic health issues are linked to long-term lifestyle patterns. Small, seemingly minor habits related to diet, sleep, activity, and stress can accumulate over time, creating significant strain on your body. The Lifestyle Strain Index isn't a diagnosis, it's a reflection of these accumulated patterns.
                 </p>
               </div>
               <div>
