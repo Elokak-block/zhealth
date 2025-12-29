@@ -148,7 +148,7 @@ function ResultsClientInternal() {
       </Card>
       
       <div className="flex justify-center">
-        <AdPlacement placementId={104} />
+        <AdPlacement placementId={112} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
@@ -204,7 +204,7 @@ function ResultsClientInternal() {
               </CardContent>
             </Card>
             <div className="flex justify-center">
-                <AdPlacement placementId={105} />
+                <AdPlacement placementId={110} />
             </div>
             </>
           )}

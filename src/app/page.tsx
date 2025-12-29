@@ -31,7 +31,7 @@ export default function Home() {
                 </p>
               </div>
                <div className="pt-8">
-                <AdPlacement placementId={106} />
+                <AdPlacement placementId={111} />
               </div>
             </div>
           </div>
