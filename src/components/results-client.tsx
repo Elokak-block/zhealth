@@ -139,16 +139,16 @@ function ResultsClientInternal() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
-        <Card className="text-center shadow-lg bg-primary/10 border-primary/20">
-            <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-foreground">Curious about your own score?</h3>
-                <p className="text-muted-foreground mt-2 mb-4">Take our free 2-minute assessment to understand your lifestyle strain.</p>
-                <Button asChild>
-                    <Link href="/assessment">Take Your Own Assessment</Link>
-                </Button>
-            </CardContent>
-        </Card>
-
+       <Card className="text-center shadow-lg bg-card/50">
+        <CardContent className="p-6 sm:p-8">
+          <h3 className="text-xl font-semibold text-foreground">Curious about your own score?</h3>
+          <p className="text-muted-foreground mt-2 mb-4">Take our free 2-minute assessment to understand your lifestyle strain.</p>
+          <Button asChild>
+            <Link href="/assessment">Take Your Own Assessment</Link>
+          </Button>
+        </CardContent>
+      </Card>
+      
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
         <CardHeader className="p-4 sm:p-6">
