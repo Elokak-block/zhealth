@@ -16,7 +16,8 @@ const features = [
   },
   {
     icon: <Users className="h-8 w-8 text-primary" />,
-    title Personalized Result Tiers: 'Presents results within psychologically safe tiers (Low, Moderate, High, Critical) with clear explanations of primary risk drivers and actionable changes.',
+    title: 'Personalized Result Tiers',
+    description: 'Presents results within psychologically safe tiers (Low, Moderate, High, Critical) with clear explanations of primary risk drivers and actionable changes.',
   },
   {
     icon: <Share2 className="h-8 w-8 text-primary" />,

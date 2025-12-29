@@ -1,3 +1,4 @@
+
 import { Suspense } from 'react';
 import Header from '@/components/header';
 import ResultsClientWrapper from '@/components/results-client';
@@ -55,7 +56,7 @@ export default function ResultsPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1 py-6 md:py-12">
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
         <Suspense fallback={<ResultsFallback />}>
           <ResultsClientWrapper />
         </Suspense>

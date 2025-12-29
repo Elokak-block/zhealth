@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -111,8 +112,7 @@ export default function AssessmentPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
        <div className="flex justify-center py-2">
-         {currentQuestionIndex < 15 && <AdPlacement placementId={114} />}
-         {currentQuestionIndex >= 15 && <AdPlacement placementId={113} />}
+         {currentQuestionIndex < 15 ? <AdPlacement placementId={114} /> : <AdPlacement placementId={113} />}
       </div>
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-2xl space-y-4">

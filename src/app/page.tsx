@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
@@ -10,7 +11,7 @@ export default function Home() {
        <div className="flex justify-center py-2">
         <AdPlacement placementId={115} />
       </div>
-      <main className="flex-1 flex items-center">
+      <main className="flex-1 flex items-center justify-center p-4">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
