@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
@@ -57,6 +58,8 @@ export default function RootLayout({
               </p>
               <nav className="flex gap-4 sm:gap-6 text-xs text-muted-foreground flex-wrap justify-center">
                 <Link href="/about" className="hover:text-foreground">About</Link>
+                <Link href="/features" className="hover:text-foreground">Features</Link>
+                <Link href="/health-insights" className="hover:text-foreground">Health Insights</Link>
                 <Link href="/contact" className="hover:text-foreground">Contact</Link>
                 <Link href="/faq" className="hover:text-foreground">FAQ</Link>
                 <Link href="/terms" className="hover:text-foreground">Terms</Link>

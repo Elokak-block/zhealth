@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toPng } from 'html-to-image';
 import Image from 'next/image';
@@ -13,7 +14,7 @@ import AdPlacement from '@/components/ad-placement';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle } from 'lucide-react';
+import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, HeartPulse } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
@@ -99,10 +100,13 @@ function ResultsClientInternal() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="space-y-6"
         >
-          <h2 className="text-2xl font-semibold mb-2">Loading results...</h2>
-          <p className="text-muted-foreground">Or the data is invalid. Please try again.</p>
-           <Button onClick={() => router.push('/assessment')} className="mt-4">Try Again</Button>
+          <h2 className="text-2xl font-semibold mb-2">No results to display.</h2>
+          <p className="text-muted-foreground">It looks like you've landed on the results page directly.</p>
+           <Button asChild size="lg" className="mt-4">
+              <Link href="/assessment">Take Your Own Assessment</Link>
+           </Button>
         </motion.div>
       </div>
     );
@@ -135,6 +139,17 @@ function ResultsClientInternal() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
+       {/* Call to action card */}
+        <Card className="text-center shadow-lg bg-primary/10 border-primary/20">
+            <CardContent className="p-6">
+                <h3 className="text-xl font-semibold text-foreground">Curious about your own score?</h3>
+                <p className="text-muted-foreground mt-2 mb-4">Take our free 2-minute assessment to understand your lifestyle strain.</p>
+                <Button asChild>
+                    <Link href="/assessment">Take Your Own Assessment</Link>
+                </Button>
+            </CardContent>
+        </Card>
+
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
         <CardHeader className="p-4 sm:p-6">

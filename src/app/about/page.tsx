@@ -1,3 +1,4 @@
+
 import Header from '@/components/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -6,7 +7,7 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-3xl text-center">
           <Card className="bg-card/50">
             <CardHeader>
               <CardTitle className="text-3xl font-semibold">About Us</CardTitle>
@@ -25,7 +26,7 @@ export default function AboutPage() {
               <h4 className="text-lg font-semibold text-foreground pt-4">
                 Our goal is to create tools that are:
               </h4>
-              <ul className="list-disc pl-5 space-y-2">
+              <ul className="list-disc list-inside inline-block text-left space-y-2">
                 <li>Easy to use</li>
                 <li>Honest and transparent</li>
                 <li>

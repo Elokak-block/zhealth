@@ -1,3 +1,4 @@
+
 import Header from '@/components/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
@@ -7,10 +8,10 @@ export default function DisclaimerPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-3xl text-center">
           <Card className="bg-card/50 border-accent/50">
             <CardHeader>
-              <CardTitle className="text-3xl font-semibold flex items-center gap-3">
+              <CardTitle className="text-3xl font-semibold flex items-center justify-center gap-3">
                 <AlertTriangle className="h-8 w-8 text-accent" />
                 Disclaimer
               </CardTitle>
@@ -23,7 +24,7 @@ export default function DisclaimerPage() {
               <p>
                 All tools, results, scores, and insights are:
               </p>
-              <ul className="list-disc pl-5 space-y-2">
+              <ul className="list-disc list-inside inline-block text-left space-y-2">
                 <li>For informational and educational purposes only</li>
                 <li>
                   Based on generalized logic and self-reported input
@@ -33,7 +34,7 @@ export default function DisclaimerPage() {
               <p className="pt-2">
                 No content on this site should be interpreted as:
               </p>
-                <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc list-inside inline-block text-left space-y-2">
                     <li>Medical diagnosis</li>
                     <li>Health risk prediction</li>
                     <li>Professional recommendation</li>
@@ -45,7 +46,7 @@ export default function DisclaimerPage() {
               <p className="pt-2">
                 By using this website, you agree that:
               </p>
-              <ul className="list-disc pl-5 space-y-2">
+              <ul className="list-disc list-inside inline-block text-left space-y-2">
                 <li>
                   You are solely responsible for how you interpret and use the
                   information
