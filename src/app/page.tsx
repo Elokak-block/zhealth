@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
-import AdBanner from '@/components/ad-banner';
 
 export default function Home() {
   return (
@@ -31,9 +30,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-       <div className="container px-4 md:px-6 mb-8">
-        <AdBanner />
-      </div>
     </div>
   );
 }

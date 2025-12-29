@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import AdBanner from './ad-banner';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
   diet: <Apple />,
@@ -258,16 +257,12 @@ function ResultsClientInternal({ data }: { data?: string }) {
         </div>
       </div>
 
-      <div className="my-8">
-        <AdBanner />
-      </div>
-
       <Alert variant="default" className="bg-card/30 border-accent/50">
         <Info className="h-4 w-4 text-accent" />
         <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
         <AlertDescription className="text-muted-foreground">
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
-        </AlertDescription>
+        </AlerctDescription>
       </Alert>
     </motion.div>
   );

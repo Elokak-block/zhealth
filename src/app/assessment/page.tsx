@@ -13,7 +13,6 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AdBanner from '@/components/ad-banner';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -43,11 +42,8 @@ export default function AssessmentPage() {
       setIsTransitioning(true);
     } else {
       setIsLoading(true);
-      // Delay to show ad before results
-      setTimeout(() => {
-        const data = btoa(JSON.stringify(answers));
-        router.push(`/results?data=${data}`);
-      }, 500); // Short delay to feel responsive
+      const data = btoa(JSON.stringify(answers));
+      router.push(`/results?data=${data}`);
     }
   };
 
@@ -206,9 +202,6 @@ export default function AssessmentPage() {
           </AnimatePresence>
         </div>
       </main>
-      <div className="container px-4 md:px-6 my-8">
-        <AdBanner />
-      </div>
     </div>
   );
 }
