@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import AdPlacement from '@/components/ad-placement';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -34,6 +35,7 @@ export default function AssessmentPage() {
   const [direction, setDirection] = useState(1); // 1 for next, -1 for back
   const [isLoading, setIsLoading] = useState(false);
   const [hasSliderInteracted, setHasSliderInteracted] = useState(false);
+  const isMobile = useIsMobile();
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex) / questions.length) * 100;
@@ -53,6 +55,11 @@ export default function AssessmentPage() {
     setAnswers(prevAnswers => ({ ...prevAnswers, [questionId]: value }));
     if (currentQuestion.type === 'slider') {
       setHasSliderInteracted(true);
+    } else if (isMobile && currentQuestion.type === 'multiple-choice') {
+      // Auto-advance on mobile for multiple choice
+      setTimeout(() => {
+        handleNext();
+      }, 200);
     }
   };
   
@@ -112,7 +119,7 @@ export default function AssessmentPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
        <div className="flex justify-center py-2">
-         {currentQuestionIndex < 15 ? <AdPlacement placementId={114} /> : <AdPlacement placementId={113} />}
+         <AdPlacement placementId={114} />
       </div>
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-2xl space-y-4">

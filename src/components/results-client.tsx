@@ -14,7 +14,7 @@ import AdPlacement from '@/components/ad-placement';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, HeartPulse } from 'lucide-react';
+import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, HeartPulse, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
@@ -139,7 +139,6 @@ function ResultsClientInternal() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-6 md:space-y-8"
     >
-       {/* Call to action card */}
         <Card className="text-center shadow-lg bg-primary/10 border-primary/20">
             <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-foreground">Curious about your own score?</h3>
@@ -291,6 +290,11 @@ function ResultsClientInternal() {
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
         </AlertDescription>
       </Alert>
+      <div className="flex justify-center mt-8">
+        <Button asChild variant="outline">
+            <Link href="/assessment"><RefreshCw className="mr-2 h-4 w-4" /> Retake Assessment</Link>
+        </Button>
+      </div>
     </motion.div>
   );
 }
