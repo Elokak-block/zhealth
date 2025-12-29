@@ -13,6 +13,7 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import AdPlacement from '@/components/ad-placement';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -47,12 +48,9 @@ export default function AssessmentPage() {
     }
   };
 
-  const handleAnswerChange = (questionId: string, value: number) => {
-    const updatedAnswers = { ...answers, [questionId]: value };
-    setAnswers(updatedAnswers);
-     if (currentQuestion.type !== 'slider') {
-      setHasSliderInteracted(true); // for multiple choice, consider it interacted
-    } else {
+ const handleAnswerChange = (questionId: string, value: number) => {
+    setAnswers(prevAnswers => ({ ...prevAnswers, [questionId]: value }));
+    if (currentQuestion.type === 'slider') {
       setHasSliderInteracted(true);
     }
   };
@@ -109,9 +107,15 @@ export default function AssessmentPage() {
     )
   }
 
+  const adPlacements = currentQuestionIndex < 15 ? [102] : [103];
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+       <div className="flex justify-center py-2">
+         {currentQuestionIndex < 15 && <AdPlacement placementId={102} />}
+         {currentQuestionIndex >= 15 && <AdPlacement placementId={103} />}
+      </div>
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-2xl space-y-4">
            <div>
