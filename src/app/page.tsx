@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header />
        <div className="flex justify-center py-2">
-        <AdPlacement placementId={101} />
+        <AdPlacement placementId={115} />
       </div>
       <main className="flex-1 flex items-center">
         <section className="w-full py-12 md:py-24 lg:py-32">
