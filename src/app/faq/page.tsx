@@ -31,7 +31,7 @@ export default function FaqPage() {
                       It is a non-diagnostic wellness tool that analyzes your
                       self-reported daily habits to calculate a Lifestyle Strain
                       Index (LSI). This score offers insight into how your
-                      lifestyle patterns—related to diet, sleep, and stress—may
+                      lifestyle patterns, including diet, sleep, and stress, may
                       impact your long-term wellness.
                     </p>
                   </AccordionContent>
@@ -90,7 +90,7 @@ export default function FaqPage() {
                       might trigger a "Sleep Strain" flag.
                     </p>
                      <p>
-                      These are not predictions but simply highlight areas
+                      These are not predictions, but simply highlight areas
                       where your lifestyle patterns may be contributing to
                       higher strain. They are intended to help you focus your
                       efforts on specific habit improvements.
