@@ -25,8 +25,10 @@ const pillarIcons: Record<PillarId, React.ReactNode> = {
   lifestyle: <Activity />,
 };
 
-function ResultsClientInternal({ data }: { data?: string }) {
+function ResultsClientInternal() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const dataParam = searchParams.get('data');
   const shareableRef = useRef<HTMLDivElement>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [isCopied, setIsCopied] = useState(false);
@@ -38,15 +40,15 @@ function ResultsClientInternal({ data }: { data?: string }) {
   }, []);
 
   const resultData: ResultData | null = useMemo(() => {
-    if (!data) return null;
+    if (!dataParam) return null;
     try {
-      const answers: AnswerSet = JSON.parse(atob(data));
+      const answers: AnswerSet = JSON.parse(atob(dataParam));
       return calculateScores(answers);
     } catch (error) {
       console.error('Failed to parse result data:', error);
       return null;
     }
-  }, [data]);
+  }, [dataParam]);
 
   const handleDownloadImage = useCallback(() => {
     if (shareableRef.current === null) return;
@@ -89,7 +91,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
     window.open(url, '_blank');
   };
 
-  if (!data) {
+  if (!dataParam) {
      return (
       <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
         <motion.div
@@ -262,7 +264,7 @@ function ResultsClientInternal({ data }: { data?: string }) {
         <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
         <AlertDescription className="text-muted-foreground">
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
-        </AlerctDescription>
+        </AlertDescription>
       </Alert>
     </motion.div>
   );
@@ -270,10 +272,5 @@ function ResultsClientInternal({ data }: { data?: string }) {
 
 
 export default function ResultsClientWrapper() {
-  const searchParams = useSearchParams();
-  const dataParam = searchParams.get('data');
-
-  return <ResultsClientInternal data={dataParam || undefined} />;
+  return <ResultsClientInternal />;
 }
-
-    
