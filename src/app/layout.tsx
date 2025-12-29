@@ -27,19 +27,6 @@ export default function RootLayout({
           `}
         </Script>
         <Script async src="//www.ezojs.com/ezoic/sa.min.js" strategy="beforeInteractive" />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-J8XCZCL7TV"
-        ></Script>
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-J8XCZCL7TV');
-          `}
-        </Script>
         <Script id="google-tag-manager">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
