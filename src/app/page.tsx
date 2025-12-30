@@ -3,18 +3,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
-import Script from 'next/script';
 
-// A small change to allow a new git commit.
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-       <Script
-        src="https://quge5.com/88/tag.min.js"
-        data-zone="197437"
-        data-cfasync="false"
-        async
-      />
       <Header />
       <main className="flex-1 flex items-center justify-center p-4">
         <section className="w-full py-12 md:py-24 lg:py-32">

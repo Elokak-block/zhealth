@@ -5,30 +5,6 @@ import { Activity } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-// Ad banner component
-const AdBanner = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.innerHTML = `(function(s){s.dataset.zone='10395534',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
-    document.body.appendChild(script);
-
-    return () => {
-      // This is a best-effort cleanup.
-      const adScript = document.querySelector('script[src="https://nap5k.com/tag.min.js"]');
-      if (adScript) {
-        adScript.remove();
-      }
-      const adElement = document.querySelector('div[data-zone="10395534"]');
-       if (adElement) {
-        adElement.remove();
-      }
-    };
-  }, []);
-
-  return null;
-};
-
-
 export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
