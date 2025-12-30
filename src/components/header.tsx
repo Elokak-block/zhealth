@@ -39,7 +39,7 @@ export default function Header() {
         <Activity className="h-6 w-6 text-primary" />
         <span className="ml-3 text-xl font-semibold">Zuty Health</span>
       </Link>
-      {isHomePage && <AdBanner />}
+      
     </header>
   );
 }
