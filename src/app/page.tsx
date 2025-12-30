@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/header';
 import Script from 'next/script';
 
+// A small change to allow a new git commit.
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
