@@ -3,11 +3,36 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
+import { useEffect } from 'react';
+
+const AdUnit = () => {
+  useEffect(() => {
+    // Create the options script
+    const optionsScript = document.createElement('script');
+    optionsScript.innerHTML = `atOptions = { 'key' : '776d2d1dc730da4da753c518c38c4243', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };`;
+    document.body.appendChild(optionsScript);
+
+    // Create the main ad script
+    const invokeScript = document.createElement('script');
+    invokeScript.src = 'https://www.highperformanceformat.com/776d2d1dc730da4da753c518c38c4243/invoke.js';
+    invokeScript.async = true;
+    document.body.appendChild(invokeScript);
+
+    // Cleanup function to remove scripts when component unmounts
+    return () => {
+      document.body.removeChild(optionsScript);
+      document.body.removeChild(invokeScript);
+    };
+  }, []);
+
+  return null;
+};
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <AdUnit />
       <main className="flex-1 flex items-center justify-center p-4">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
