@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Header from '@/components/header';
 import { useEffect } from 'react';
 
+// Ad banner component
 const AdBanner = () => {
   useEffect(() => {
     const script = document.createElement('script');
