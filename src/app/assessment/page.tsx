@@ -14,7 +14,6 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AdPlacement from '@/components/ad-placement';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const getInitialAnswers = (): AnswerSet => {
@@ -118,9 +117,6 @@ export default function AssessmentPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-       <div className="flex justify-center py-2">
-         <AdPlacement placementId={114} />
-      </div>
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-2xl space-y-4">
            <div>

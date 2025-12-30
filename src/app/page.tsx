@@ -2,15 +2,11 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
-import AdPlacement from '@/components/ad-placement';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-       <div className="flex justify-center py-2">
-        <AdPlacement placementId={115} />
-      </div>
       <main className="flex-1 flex items-center justify-center p-4">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
@@ -30,9 +26,6 @@ export default function Home() {
                 <p className="text-xs text-muted-foreground">
                   No sign-up · No data stored · 2–3 minutes
                 </p>
-              </div>
-               <div className="pt-8">
-                <AdPlacement placementId={111} />
               </div>
             </div>
           </div>

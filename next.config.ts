@@ -1,15 +1,7 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/ads.txt',
-        destination: 'https://srv.adstxtmanager.com/19390/zutyhealth.com',
-        permanent: true,
-      },
-    ];
-  },
   /* config options here */
   typescript: {
     ignoreBuildErrors: true,

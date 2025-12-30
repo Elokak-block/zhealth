@@ -58,15 +58,6 @@ export default function PrivacyPage() {
                   absolute security.
                 </p>
               </div>
-              <div>
-                <h4 className="text-lg font-semibold text-foreground">6. Advertising Partner Disclosures</h4>
-                <p className="mt-2">
-                  This site is affiliated with Ezoic for the purposes of placing advertising on the site. Ezoic and its partners may collect and use data for advertising purposes. The following disclosures are provided by Ezoic.
-                </p>
-                <div className="mt-4 p-4 border rounded-lg text-sm">
-                   <span id="ezoic-privacy-policy-embed"></span>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>

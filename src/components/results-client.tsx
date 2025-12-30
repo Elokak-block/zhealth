@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { calculateScores } from '@/lib/scoring';
 import type { AnswerSet, ResultData, PillarId } from '@/lib/types';
 import { PILLARS } from '@/lib/types';
-import AdPlacement from '@/components/ad-placement';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -160,10 +159,6 @@ function ResultsClientInternal() {
           <p className="text-muted-foreground mt-2 max-w-2xl mx-auto text-sm sm:text-base">{resultData.tier.description}</p>
         </CardContent>
       </Card>
-      
-      <div className="flex justify-center">
-        <AdPlacement placementId={112} />
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         <div className="lg:col-span-2 space-y-6 md:space-y-8">
@@ -199,7 +194,6 @@ function ResultsClientInternal() {
           </Card>
 
           {resultData.riskFlags.length > 0 && (
-            <>
             <Card className="bg-card/50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><AlertTriangle className="text-accent" /> Areas for Improvement</CardTitle>
@@ -217,10 +211,6 @@ function ResultsClientInternal() {
                 ))}
               </CardContent>
             </Card>
-            <div className="flex justify-center">
-                <AdPlacement placementId={110} />
-            </div>
-            </>
           )}
         </div>
 
@@ -274,7 +264,7 @@ function ResultsClientInternal() {
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-semibold">Check your score at zutyhealth.com</p>
-                  <p className="text-[10px] text-muted-foreground/80 mt-1">This is not medical advice. Consult a doctor for health concerns.</p>
+                  <p className="text-[10px] text-muted-foreground/80 mt-1">This is not a medical advice. Consult a doctor for health concerns.</p>
                 </div>
               </div>
               <Button onClick={handleDownloadImage} className="w-full"><Download className="mr-2" /> Download Image</Button>
