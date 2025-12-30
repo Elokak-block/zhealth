@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        <meta name="monetag" content="4253c72bad5c9b56283a33d7102d7059" />
       </head>
       <body
         className={cn(
