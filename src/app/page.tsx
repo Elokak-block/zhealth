@@ -1,36 +1,13 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
-import { useEffect } from 'react';
-
-// Ad banner component
-const AdBanner = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.innerHTML = `(function(s){s.dataset.zone='10395534',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when the component unmounts.
-      // This is a best-effort cleanup.
-      const adScript = document.querySelector('script[src="https://nap5k.com/tag.min.js"]');
-      if (adScript) {
-        adScript.remove();
-      }
-    };
-  }, []);
-
-  return null;
-};
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <AdBanner />
       <main className="flex-1 flex items-center justify-center p-4">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
