@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { AdUnit } from '@/components/ad-unit';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -98,6 +99,14 @@ export default function AssessmentPage() {
     router.prefetch('/results');
   }, [router]);
 
+  const showAdForQuestion = useMemo(() => {
+    const qNum = currentQuestionIndex + 1;
+    if (qNum >= 1 && qNum <= 10) return 'ad-set-1';
+    if (qNum >= 11 && qNum <= 20) return 'ad-set-2';
+    if (qNum >= 21 && qNum <= 25) return 'ad-set-3';
+    return null;
+  }, [currentQuestionIndex]);
+
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
@@ -126,6 +135,8 @@ export default function AssessmentPage() {
               {currentQuestionIndex > questions.length - 5 && ' - Almost there!'}
             </p>
           </div>
+
+          {showAdForQuestion && <AdUnit adKey={showAdForQuestion} />}
 
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div

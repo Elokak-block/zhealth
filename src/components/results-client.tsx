@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, HeartPulse, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AdUnit } from '@/components/ad-unit';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
   diet: <Apple />,
@@ -148,6 +149,8 @@ function ResultsClientInternal() {
         </CardContent>
       </Card>
       
+      <AdUnit adKey="results-ad-1" />
+
       {/* Main Score */}
       <Card className="text-center shadow-lg bg-card/50">
         <CardHeader className="p-4 sm:p-6">
@@ -273,6 +276,14 @@ function ResultsClientInternal() {
         </div>
       </div>
 
+       <div className="flex justify-center mt-8">
+        <Button asChild variant="outline">
+            <Link href="/assessment"><RefreshCw className="mr-2 h-4 w-4" /> Retake Assessment</Link>
+        </Button>
+      </div>
+
+      <AdUnit adKey="results-ad-2" />
+
       <Alert variant="default" className="bg-card/30 border-accent/50">
         <Info className="h-4 w-4 text-accent" />
         <AlertTitle className="text-foreground">Legal Disclaimer</AlertTitle>
@@ -280,11 +291,7 @@ function ResultsClientInternal() {
           This tool does not diagnose diseases or medical conditions. It highlights lifestyle patterns associated with health risks. Always consult a healthcare professional for medical concerns. Your data is not saved or stored.
         </AlertDescription>
       </Alert>
-      <div className="flex justify-center mt-8">
-        <Button asChild variant="outline">
-            <Link href="/assessment"><RefreshCw className="mr-2 h-4 w-4" /> Retake Assessment</Link>
-        </Button>
-      </div>
+     
     </motion.div>
   );
 }

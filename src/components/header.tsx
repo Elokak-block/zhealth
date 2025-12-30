@@ -3,38 +3,12 @@
 import Link from 'next/link';
 import { Activity } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-
-const AdUnit = () => {
-  const adContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Check if scripts are already there to prevent duplication on re-renders
-    if (adContainerRef.current && adContainerRef.current.children.length === 0) {
-      const optionsScript = document.createElement('script');
-      optionsScript.innerHTML = `atOptions = { 'key' : '776d2d1dc730da4da753c518c38c4243', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };`;
-      
-      const invokeScript = document.createElement('script');
-      invokeScript.src = 'https://www.highperformanceformat.com/776d2d1dc730da4da753c518c38c4243/invoke.js';
-      invokeScript.async = true;
-
-      // Append scripts to the ref'd div
-      adContainerRef.current.appendChild(optionsScript);
-      adContainerRef.current.appendChild(invokeScript);
-    }
-  }, []);
-
-  return (
-    // This outer container ensures the ad unit has a defined space and is centered.
-    <div className="w-full flex justify-center items-center h-[50px]">
-      <div ref={adContainerRef}></div>
-    </div>
-  );
-};
+import { AdUnit } from '@/components/ad-unit';
 
 
 export default function Header() {
   const pathname = usePathname();
+  // Show ad on home, assessment, and results pages
   const showAd = ['/', '/assessment', '/results'].includes(pathname);
 
   return (
@@ -45,7 +19,7 @@ export default function Header() {
           <span className="ml-3 text-xl font-semibold">Zuty Health</span>
         </Link>
       </div>
-      {showAd && <AdUnit />}
+      {showAd && <AdUnit adKey="header-ad" />}
     </header>
   );
 }
