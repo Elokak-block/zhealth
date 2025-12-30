@@ -28,7 +28,7 @@ const AdUnit = () => {
 
 export default function Header() {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const showAd = ['/', '/assessment', '/results'].includes(pathname);
 
   return (
     <header className="px-4 lg:px-6 h-auto flex-col items-center justify-center">
@@ -38,7 +38,7 @@ export default function Header() {
           <span className="ml-3 text-xl font-semibold">Zuty Health</span>
         </Link>
       </div>
-      {isHomePage && <AdUnit />}
+      {showAd && <AdUnit />}
     </header>
   );
 }
