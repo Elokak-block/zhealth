@@ -1,12 +1,24 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
-import { useEffect } from 'react';
-import { AdUnit } from '@/components/ad-unit';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+  const [countdown, setCountdown] = useState(5);
+  const [buttonEnabled, setButtonEnabled] = useState(false);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setButtonEnabled(true);
+    }
+  }, [countdown]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -23,13 +35,16 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-y-4">
-                 <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-lg">
-                    <Link href="/assessment">Check My Lifestyle Strain</Link>
+                 <Button asChild={buttonEnabled} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-lg" disabled={!buttonEnabled}>
+                    {buttonEnabled ? (
+                      <Link href="/assessment">Check My Lifestyle Strain</Link>
+                    ) : (
+                      <span>{`Please wait ${countdown}s`}</span>
+                    )}
                   </Button>
                 <p className="text-xs text-muted-foreground">
                   No sign-up · No data stored · 2–3 minutes
                 </p>
-                <AdUnit adKey="homepage-main" />
               </div>
             </div>
           </div>
