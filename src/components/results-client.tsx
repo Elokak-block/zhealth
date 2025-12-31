@@ -243,6 +243,10 @@ function ResultsClientInternal() {
               </div>
             </CardContent>
           </Card>
+
+          <AdUnitTwo adKey="results-ad-sidebar-two" />
+          <AdUnit adKey="results-ad-sidebar-one" />
+
           <Card className="bg-card/50">
             <CardHeader>
               <CardTitle>Download Result Image</CardTitle>
