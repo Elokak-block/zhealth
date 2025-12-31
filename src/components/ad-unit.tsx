@@ -6,15 +6,16 @@ import { useEffect } from 'react';
 export const AdUnit = ({ adKey }: { adKey: string }) => {
   useEffect(() => {
     // Check if the script has already been added by checking for a marker
-    if (document.getElementById(`ad-container-${adKey}`)?.dataset.loaded) {
+    const containerId = `ad-container-${adKey}`;
+    const adContainer = document.getElementById(containerId);
+
+    if (!adContainer || adContainer.dataset.loaded) {
       return;
     }
 
-    const adContainer = document.getElementById(`ad-container-${adKey}`);
-    if (!adContainer) return;
-
     // Set a marker to indicate the script is loaded for this ad key
     adContainer.dataset.loaded = 'true';
+    adContainer.innerHTML = ''; // Clear previous content if any
 
     const optionsScript = document.createElement('script');
     optionsScript.innerHTML = `atOptions = { 'key' : '776d2d1dc730da4da753c518c38c4243', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };`;
