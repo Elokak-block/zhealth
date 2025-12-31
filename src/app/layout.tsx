@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: 'Zuty Health - Lifestyle Strain Assessment & Wellness Insight Tool',
@@ -53,6 +54,7 @@ export default function RootLayout({
           </footer>
         </div>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
