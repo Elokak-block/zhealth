@@ -16,6 +16,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Download, Info, AlertTriangle, Brain, Zap, Shield, Apple, Dumbbell, Bed, Activity, Share2, Copy, MessageCircle, HeartPulse, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AdUnit } from '@/components/ad-unit';
+import { AdUnitTwo } from '@/components/ad-unit-two';
 
 const pillarIcons: Record<PillarId, React.ReactNode> = {
   diet: <Apple />,
@@ -149,6 +150,7 @@ function ResultsClientInternal() {
         </CardContent>
       </Card>
       
+      <AdUnitTwo adKey="results-ad-1-two" />
       <AdUnit adKey="results-ad-1" />
 
       {/* Main Score */}
@@ -282,6 +284,7 @@ function ResultsClientInternal() {
         </Button>
       </div>
 
+      <AdUnitTwo adKey="results-ad-2-two" />
       <AdUnit adKey="results-ad-2" />
 
       <Alert variant="default" className="bg-card/30 border-accent/50">

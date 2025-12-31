@@ -16,6 +16,7 @@ import { ArrowLeft, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AdUnit } from '@/components/ad-unit';
+import { AdUnitTwo } from '@/components/ad-unit-two';
 
 const getInitialAnswers = (): AnswerSet => {
   return questions.reduce((acc, q) => {
@@ -136,7 +137,12 @@ export default function AssessmentPage() {
             </p>
           </div>
 
-          {showAdForQuestion && <AdUnit adKey={showAdForQuestion} />}
+          {showAdForQuestion && (
+            <>
+              <AdUnitTwo adKey={`${showAdForQuestion}-two`} />
+              <AdUnit adKey={showAdForQuestion} />
+            </>
+          )}
 
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div

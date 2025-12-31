@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Activity } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { AdUnit } from '@/components/ad-unit';
+import { AdUnitTwo } from '@/components/ad-unit-two';
 
 
 export default function Header() {
@@ -19,7 +20,12 @@ export default function Header() {
           <span className="ml-3 text-xl font-semibold">Zuty Health</span>
         </Link>
       </div>
-      {showAd && <AdUnit adKey="header-ad" />}
+      {showAd && (
+        <>
+          <AdUnitTwo adKey="header-ad-two" />
+          <AdUnit adKey="header-ad" />
+        </>
+      )}
     </header>
   );
 }
