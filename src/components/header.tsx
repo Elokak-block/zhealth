@@ -10,8 +10,8 @@ import { AdUnitTwo } from '@/components/ad-unit-two';
 
 export default function Header() {
   const pathname = usePathname();
-  // Show ad on home, assessment, and results pages
-  const showAd = ['/', '/assessment', '/results'].includes(pathname);
+  // Show ads on home, assessment, and results pages
+  const showAds = ['/', '/assessment', '/results'].includes(pathname);
 
   return (
     <header className="px-4 lg:px-6 h-auto flex flex-col items-center justify-center">
@@ -21,7 +21,7 @@ export default function Header() {
           <span className="ml-3 text-xl font-semibold">Zuty Health</span>
         </Link>
       </div>
-      {showAd && (
+      {showAds && (
         <>
           <AdUnitTwo adKey="header-ad-two" />
           <AdUnit adKey="header-ad" />
