@@ -12,6 +12,7 @@ export default function Header() {
   const pathname = usePathname();
   // Show ad on home, assessment, and results pages
   const showAd = ['/', '/assessment', '/results'].includes(pathname);
+  const isHomePage = pathname === '/';
 
   return (
     <header className="px-4 lg:px-6 h-auto flex flex-col items-center justify-center">
@@ -24,7 +25,7 @@ export default function Header() {
       {showAd && (
         <>
           <AdUnitTwo adKey="header-ad-two" />
-          <AdUnit adKey="header-ad" />
+          {!isHomePage && <AdUnit adKey="header-ad" />}
         </>
       )}
     </header>

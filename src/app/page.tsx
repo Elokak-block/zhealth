@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Header from '@/components/header';
 import { useEffect } from 'react';
+import { AdUnit } from '@/components/ad-unit';
 
 export default function Home() {
   return (
@@ -21,13 +22,14 @@ export default function Home() {
                   Our wellness insight tool provides a non-diagnostic health check by analyzing your daily habits. Discover how your lifestyle patterns affect your long-term health, from stress and diet to sleep quality. No data is ever stored.
                 </p>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-4">
                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-lg">
                     <Link href="/assessment">Check My Lifestyle Strain</Link>
                   </Button>
                 <p className="text-xs text-muted-foreground">
                   No sign-up · No data stored · 2–3 minutes
                 </p>
+                <AdUnit adKey="homepage-main" />
               </div>
             </div>
           </div>
